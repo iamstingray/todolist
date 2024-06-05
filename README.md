@@ -18,12 +18,12 @@
 
     - Default-Gateway:
         ```sh
-        nmcli con mod "Wired connection 1" ipv4.gateway 192.168.24.254
+        nmcli con mod "Wired connection 1" ipv4.gateway 192.168.24.1
         ```
         
     - DNS-Server konfigurieren:
         ```sh
-        nmcli con mod "Wired connection 1" ipv4.dns “8.8.8.8”
+        nmcli con mod "Wired connection 1" ipv4.dns "8.8.8.8"
         ```
 
     - IP-Konfigurationsmethode auf manuell setzen:
@@ -76,9 +76,10 @@
             - `fernzugriff`: Der Name des Benutzers, der zur sudo-Gruppe hinzugefügt werden soll.
 
 - SSH-Dienst für den Benutzer „fernzugriff“ zur Administration
-    - OpenSSH-Server installieren/ auf den neusten Stand bringen:
+    - OpenSSH-Server installieren oder auf den neuesten Stand bringen:
         ```sh
         sudo apt-get install openssh-server
+        ```
     - SSH-Konfigurationsdatei bearbeiten, um SSH-Zugriff zu gewähren:
         ```sh
         sudo nano /etc/ssh/sshd_config
@@ -93,28 +94,28 @@
         ```
 
 - Docker:
-    - Docker runterladen
+    - Docker herunterladen:
         ```sh
         curl -fsSL https://get.docker.com -o get-docker.sh
         ```
-    - Docker ausführen
+    - Docker ausführen:
         ```sh
         sudo sh get-docker.sh
         ```
-    - Usergruppe "docker" hinzufügen, um Dockerbefehle ohne "sudo" auszuführen
+    - Usergruppe "docker" hinzufügen, um Dockerbefehle ohne "sudo" auszuführen:
         ```sh
         sudo usermod -aG docker $USER
         ```
-    - Ordner erstellen
+    - Ordner erstellen:
         ```sh
         mkdir ~/todo-list-app
         ```
-    - Zum Ordner gehen
+    - Zum Ordner wechseln:
         ```sh
         cd ~/todo-list-app
         ```
-    - Dockerfile erstellen
-        ```sh
+    - Dockerfile erstellen:
+        ```dockerfile
         # Verwende ein offizielles Python-Runtime-Image als Basis-Image
         FROM python:3.8-slim-buster
 
@@ -133,28 +134,30 @@
         # Setze den Standardbefehl, der beim Starten des Containers ausgeführt wird
         CMD ["python", "app.py"]
         ```
-    - Flask als Abhängigkeit deklarieren
+    - Flask als Abhängigkeit deklarieren:
         ```sh
         sudo nano requirements.txt
-        
+        ```
+        Inhalt der Datei:
+        ```
         flask
         ```
-    - Anwendungsdatei erstellen
+    - Anwendungsdatei erstellen:
         ```sh
         sudo nano app.py
         ```
     Die Struktur sieht dann wie folgt aus:
-        ```sh
+        ```
         todo-list-app/
         ├── app.py
         ├── requirements.txt
         └── Dockerfile
         ```
-    - Docker-Image erstellen
+    - Docker-Image erstellen:
         ```sh
-        sudo docker build -t todo-list.app
+        sudo docker build -t todo-list.app .
         ```
-    - Docker-Image starten
+    - Docker-Image starten:
         ```sh
         sudo docker run -d -p 5005:5005 todo-list.app
         ```
