@@ -18,7 +18,7 @@
 
     - Default-Gateway:
         ```sh
-        nmcli con mod "Wired connection 1" ipv4.gateway 192.168.24.1
+        nmcli con mod "Wired connection 1" ipv4.gateway 192.168.24.254
         ```
         
     - DNS-Server konfigurieren:
